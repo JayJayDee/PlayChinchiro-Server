@@ -5,7 +5,7 @@ import { cfgOptional } from '../configurator';
 import { logger } from '../logger';
 import { ConfigurationError } from '../errors';
 
-const log = logger({ tag: 'redis-adapter' });
+const log = logger({ tag: 'redis-connector' });
 
 const REDIS_HOST = cfgOptional('REDIS_HOST', null);
 const REDIS_PORT = cfgOptional('REDIS_PORT', 6379);

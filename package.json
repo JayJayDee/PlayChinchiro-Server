@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -p ./tsconfig-for-build.json",
-    "dev": "nodemon --watch ./src -e ts --exec \"ts-node -T --project ./tsconfig.json ./src/server\""
+    "dev": "nodemon --watch ./src -e ts --exec \"ts-node -T --project ./tsconfig.json ./src/server\"",
+    "util:sync": "ts-node -T --project ./tsconfig.json ./utils/sync-db"
   },
   "repository": {
     "type": "git",
