@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Index, CreateDateColumn } from 'typeorm';
 
 @Entity()
 export class Member {
@@ -16,4 +16,9 @@ export class Member {
     length: 120
   })
   public password: string;
+
+  @CreateDateColumn({
+    type: 'timestamp'
+  })
+  public regDate: Date;
 }
