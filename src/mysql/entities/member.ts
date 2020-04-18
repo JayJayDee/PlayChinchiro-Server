@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Index, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Room } from './room';
 
 @Entity()
 export class Member {
@@ -16,6 +17,13 @@ export class Member {
     length: 120
   })
   public password: string;
+
+  @Column({ nullable: true })
+  public joinedRoomId?: number;
+
+  @ManyToOne(() => Room, (room) => room.members, { nullable: true })
+  @JoinColumn({ name: 'joinedRoomId' })
+  public joinedRoom?: Room;
 
   @CreateDateColumn({
     type: 'timestamp'

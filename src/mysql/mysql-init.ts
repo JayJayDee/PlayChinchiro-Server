@@ -36,4 +36,3 @@ export const createMySQLConnection =
     log.info(`mysql connnection ok.`);
     return connection;
   };
-
