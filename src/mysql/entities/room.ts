@@ -9,11 +9,14 @@ export class Room {
   public id: number;
 
   @Column({
-    length: 50
+    length: 50,
+    comment: 'title of room'
   })
   public title: string;
 
-  @Column()
+  @Column({
+    comment: 'number of max attendee'
+  })
   public numMaxMember: number;
 
   @OneToMany(() => Member, (member) => member.joinedRoom)

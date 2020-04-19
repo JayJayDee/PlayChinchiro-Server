@@ -11,12 +11,13 @@ const MYSQL_PORT = cfgOptional('MYSQL_PORT', 3306);
 const MYSQL_USER = cfgMandantory('MYSQL_USER');
 const MYSQL_PASSWORD = cfgMandantory('MYSQL_PASSWORD');
 const MYSQL_DATABASE = cfgMandantory('MYSQL_DATABASE');
+const MYSQL_POOL_SIZE = cfgOptional('MYSQL_POOL_SIZE', 10);
 
 type MysqlConnectParam = {
   logging?: boolean;
 };
 
-export const createMySQLConnection =
+export const initMysqlConnection =
   async (param?: MysqlConnectParam) => {
     log.info(`establishing mysql connnection... host:${MYSQL_HOST}`);
 
@@ -30,7 +31,10 @@ export const createMySQLConnection =
       synchronize: false,
       entities: Entities,
       logging:
-        param ? param.logging ? param.logging : false : false
+        param ? param.logging ? param.logging : false : false,
+      extra: {
+        connectionLimit: MYSQL_POOL_SIZE
+      }
     });
 
     log.info(`mysql connnection ok.`);

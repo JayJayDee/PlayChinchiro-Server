@@ -1,6 +1,6 @@
 
 export {
-  createMySQLConnection
+  initMysqlConnection
 } from './mysql-init';
 
 export {

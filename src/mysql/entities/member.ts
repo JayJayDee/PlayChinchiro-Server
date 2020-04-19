@@ -8,17 +8,28 @@ export class Member {
   public id: number;
 
   @Column({
-    length: 30
+    length: 40,
+    comment: 'Nickname'
+  })
+  public nick: string;
+
+  @Column({
+    length: 30,
+    comment: 'login ID'
   })
   @Index({ unique: true })
   public loginId: string;
 
   @Column({
-    length: 120
+    length: 120,
+    comment: 'password(hashed)'
   })
   public password: string;
 
-  @Column({ nullable: true })
+  @Column({
+    nullable: true,
+    comment: 'joined room id'
+  })
   public joinedRoomId?: number;
 
   @ManyToOne(() => Room, (room) => room.members, { nullable: true })
