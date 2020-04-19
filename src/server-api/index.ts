@@ -4,6 +4,7 @@ import { wrapAsync, errorHandler } from './handlers';
 import { logger } from '../logger';
 import { initMysqlConnection } from '../mysql';
 import { initRedisConnection } from '../redis';
+import { memberRouter } from './routers';
 
 const log = logger({ tag: 'api' });
 
@@ -15,11 +16,7 @@ export const initApiServer =
 
     // initialize express app
     const app = express();
-
-    app.get('/', wrapAsync(async (req, res) => {
-      res.status(200).json({});
-    }));
-
+    app.use(memberRouter());
     app.use(errorHandler());
 
     log.info('api server initialized');
