@@ -1,5 +1,6 @@
 # PlayChinchiro-Server
 API/Socket.IO server for play-chinchiro services.
+[![CodeFactor](https://www.codefactor.io/repository/github/jayjaydee/playchinchiro-server/badge)](https://www.codefactor.io/repository/github/jayjaydee/playchinchiro-server)
 
 ## What is Chinchiro?
 Chinchiro is a gambling game played with three six-sided dice. It is a simple gamble that is played a lot in Japan.
