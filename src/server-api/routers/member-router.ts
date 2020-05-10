@@ -2,10 +2,11 @@ import { Router } from 'express';
 import { IsDefined } from 'class-validator';
 
 import { wrapAsync } from '../handlers';
+import { validateObject } from '../utils';
 
 export const memberRouter = () => {
   const router = Router();
-  router.post('/', createMember());
+  router.post('/member', createMember());
   return router;
 };
 
@@ -22,5 +23,7 @@ class CreateMemberParam {
 const createMember = () =>
   wrapAsync(async (req, res) => {
     const param = req.body;
+    await validateObject(param, CreateMemberParam);
+
     res.status(200).json({});
   });
