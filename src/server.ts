@@ -1,14 +1,14 @@
 import 'dotenv/config';
 import { createServer } from 'http';
 
-import { cfgMandantory } from './configurator';
+import { configMandatory } from './configurator';
 import { logger } from './logger';
 import { initApiServer } from './server-api';
 import { initSocketIOSever } from './server-socketio';
 
 const log = logger({ tag: 'server' });
 
-const HTTP_PORT = cfgMandantory('HTTP_PORT');
+const HTTP_PORT = configMandatory<number>('HTTP_PORT');
 
 (async () => {
   const apiServerApp = await initApiServer();

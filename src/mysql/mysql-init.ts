@@ -1,17 +1,17 @@
 import { createConnection } from 'typeorm';
 
-import { cfgMandantory, cfgOptional } from '../configurator';
+import { configMandatory, configOptional } from '../configurator';
 import { logger } from '../logger';
 import { Entities } from './entities';
 
 const log = logger({ tag: 'mysql-connector' });
 
-const MYSQL_HOST = cfgMandantory('MYSQL_HOST');
-const MYSQL_PORT = cfgOptional('MYSQL_PORT', 3306);
-const MYSQL_USER = cfgMandantory('MYSQL_USER');
-const MYSQL_PASSWORD = cfgMandantory('MYSQL_PASSWORD');
-const MYSQL_DATABASE = cfgMandantory('MYSQL_DATABASE');
-const MYSQL_POOL_SIZE = cfgOptional('MYSQL_POOL_SIZE', 10);
+const MYSQL_HOST = configMandatory<string>('MYSQL_HOST');
+const MYSQL_PORT = configOptional<number>('MYSQL_PORT', 3306);
+const MYSQL_USER = configMandatory<string>('MYSQL_USER');
+const MYSQL_PASSWORD = configMandatory<string>('MYSQL_PASSWORD');
+const MYSQL_DATABASE = configMandatory<string>('MYSQL_DATABASE');
+const MYSQL_POOL_SIZE = configOptional<number>('MYSQL_POOL_SIZE', 10);
 
 type MysqlConnectParam = {
   logging?: boolean;
