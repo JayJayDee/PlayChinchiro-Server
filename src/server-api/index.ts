@@ -1,9 +1,10 @@
-import express from 'express';
+import express, { json } from 'express';
 
-import { wrapAsync } from './handlers';
+import { wrapAsync, errorHandler } from './handlers';
 import { logger } from '../logger';
 import { initMysqlConnection } from '../mysql';
 import { initRedisConnection } from '../redis';
+import { memberRouter } from './routers';
 
 const log = logger({ tag: 'api' });
 
@@ -13,11 +14,12 @@ export const initApiServer =
     await initMysqlConnection();
     await initRedisConnection();
 
-    // regiseter express-endpoints
+    // initialize express app
     const app = express();
-    app.get('/', wrapAsync(async (req, res) => {
-      res.status(200).json({});
-    }));
+    app.use(json());
+
+    app.use(memberRouter());
+    app.use(errorHandler());
 
     log.info('api server initialized');
     return app;
