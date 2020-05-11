@@ -4,12 +4,12 @@ import './redis-adapter';
 
 import { logger } from '../logger';
 import { Server } from 'http';
-import { cfgOptional } from '../configurator';
+import { configOptional } from '../configurator';
 import { initRedisAdapter } from './redis-adapter';
 
 const log = logger({ tag: 'socketio' });
 
-const ENABLE_REDIS_ADAPTER = cfgOptional('ENABLE_REDIS_ADAPTER', null);
+const ENABLE_REDIS_ADAPTER = configOptional<string>('ENABLE_REDIS_ADAPTER');
 
 export const initSocketIOSever =
   async (server: Server) => {
