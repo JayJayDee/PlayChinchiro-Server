@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { json } from 'express';
 
 import { wrapAsync, errorHandler } from './handlers';
 import { logger } from '../logger';
@@ -16,6 +16,8 @@ export const initApiServer =
 
     // initialize express app
     const app = express();
+    app.use(json());
+
     app.use(memberRouter());
     app.use(errorHandler());
 

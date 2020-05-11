@@ -26,9 +26,10 @@ export const createMember =
       log.debug(`member inserted, id: ${id}`);
 
     } catch (err) {
-      if (err.message.includes('duplica')) {
-        throw new CcrApiError('LOGIN_ID_DUPLICATED');
+      if (err.message.includes('Duplicate entry')) {
+        throw new CcrApiError(`login id duplicated: ${loginId}`, 'LOGIN_ID_DUPLICATED');
       }
+      console.log(err);
     }
 
     // TODO: issue refresh token & access token

@@ -3,6 +3,7 @@ import { IsDefined } from 'class-validator';
 
 import { wrapAsync } from '../handlers';
 import { validateObject } from '../utils';
+import { memberService } from '../../services';
 
 export const memberRouter = () => {
   const router = Router();
@@ -25,5 +26,12 @@ const createMember = () =>
     const param = req.body;
     await validateObject(param, CreateMemberParam);
 
-    res.status(200).json({});
+    const { loginId, password, nick } = param;
+    const member = await memberService.createMember({
+      loginId,
+      password,
+      nick
+    });
+
+    res.status(200).json({ member });
   });
