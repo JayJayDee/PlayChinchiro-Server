@@ -1,20 +1,21 @@
 
-export const cfgMandantory =
-  (key: string, source?: {[key: string]: any}) => {
-    const root = source ? source : process.env;
-    if (!root[key]) {
-      throw new Error(`Configuration not found: ${key}`);
+export const configMandatory =
+  <T>(key: string) => {
+    if (process.env[key] === undefined || process.env[key] === null) {
+      throw new Error(`Environment variable required: ${key}`);
     }
-    return root[key];
+    const returnValue: T = process.env[key] as any;
+    return returnValue;
   };
 
-export const cfgOptional =
-  (key: string, defaultValue?: any, source?: {[key: string]: any}) => {
-    const root = source ? source : process.env;
-    if (!root[key] && defaultValue === undefined) {
-      throw new Error(`Configuration not found: ${key}`);
-    } else if (!root[key] && defaultValue !== undefined) {
-      return defaultValue;
+export const configOptional =
+  <T>(key: string, defaultValue?: T) => {
+    if (process.env[key] === undefined || process.env[key] === null) {
+      if (defaultValue !== undefined) {
+        return defaultValue;
+      }
+      return undefined;
     }
-    return root[key];
+    const returnValue: T = process.env[key] as any;
+    return returnValue;
   };

@@ -1,8 +1,10 @@
 import { getRepository } from 'typeorm';
+import { sign } from 'jsonwebtoken';
 
 import { Member } from '../mysql';
 import { CcrApiError } from '../errors';
 import { logger } from '../logger';
+import { generateJwt } from './utils';
 
 const log = logger({ tag: 'member-service' });
 
@@ -22,19 +24,20 @@ export const createMember =
     });
 
     try {
-      const { id } = await memberRepo.save(rawMember);
-      log.debug(`member inserted, id: ${id}`);
+      const newMember = await memberRepo.save(rawMember);
+      log.debug(`member inserted, id: ${newMember.id}`);
+
+      // TODO: issue refresh token
+      return {
+        refreshToken: '',
+        accessToken: generateJwt(newMember)
+      };
 
     } catch (err) {
-      if (err.message.includes('duplica')) {
-        throw new CcrApiError('LOGIN_ID_DUPLICATED');
+      if (err.message.includes('Duplicate entry')) {
+        throw new CcrApiError(`login id duplicated: ${loginId}`, 'LOGIN_ID_DUPLICATED');
       }
-    }
-
-    // TODO: issue refresh token & access token
-    return {
-      refreshToken: '',
-      accessToken: ''
+      throw err;
     }
   };
 

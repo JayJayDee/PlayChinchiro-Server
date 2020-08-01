@@ -1,7 +1,7 @@
 import { createClient, RedisClient } from 'redis';
 
 import { logger } from '../logger';
-import { cfgMandantory, cfgOptional } from '../configurator';
+import { configMandatory, configOptional } from '../configurator';
 import { ConfigurationError } from '../errors';
 
 const log = logger({ tag: 'redis-connector' });
@@ -21,8 +21,8 @@ export const initRedisConnection = () =>
       return resolve();
     }
 
-    const REDIS_HOST = cfgMandantory('REDIS_HOST');
-    const REDIS_PORT = cfgOptional('REDIS_PORT', 6379);
+    const REDIS_HOST = configMandatory<string>('REDIS_HOST');
+    const REDIS_PORT = configOptional<number>('REDIS_PORT', 6379) as number;
 
     log.info(`establishing redis connnection... host:${REDIS_HOST}`);
     const client = createClient({

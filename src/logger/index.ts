@@ -15,3 +15,5 @@ export const logger =
     info: (...args: any[]) => console.info(...makeLog(args, tag, subTag)),
     error: (...args: any[]) => console.error(...makeLog(args, tag, subTag)),
   });
+
+export const newLogger = () => null;
